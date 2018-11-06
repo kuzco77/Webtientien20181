@@ -25,7 +25,11 @@ render() {
         <div>
             <div className="App">
                     <p>Trang web này dùng để quản lý TEACHER</p>
-                    
+                    <TeacherTable
+            isSignedIn={(firebase.auth().currentUser !== null)}
+            onDeleteTeacher={this.onDeleteTeacher}
+            listTeachers= {this.state.listTeachers}
+          />
             </div>
 
         </div>
