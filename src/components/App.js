@@ -62,7 +62,7 @@ class App extends Component {
             Tìm kiếm theo mã giảng viên
           </p>
 
-          <input placeholder="Nhập ID giảng viên" value={this.state.teacherID || ""} onChange={this.handleIDTF} />
+          <input placeholder="Nhập ID của giảng viên" value={this.state.teacherID || ""} onChange={this.handleIDTF} />
           <OverlayTrigger placement="right" overlay={tooltip}>
             <Button bsStyle="success" onClick={this.handleAddTeacherBtn}>+</Button>
           </OverlayTrigger>
