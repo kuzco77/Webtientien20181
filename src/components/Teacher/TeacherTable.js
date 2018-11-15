@@ -48,7 +48,7 @@ class TeacherTable extends Component {
             editorStyle: {
                 height: "120px"
             },
-            
+            formatter: this.achievementFormatter
         }, {
             dataField: "phoneNumber",
             text: "Số Điện Thoại",
@@ -61,10 +61,11 @@ class TeacherTable extends Component {
             headerStyle: {
                 width: "10%",
             },
-            
+            formatter: this.gmailFormatter
         }, {
             dataField: "linkAvatar",
             text: "Avatar",
+            formatter: this.linkAvatarFormatter,
             headerStyle: {
                 width: "12%",
             }
@@ -91,7 +92,36 @@ class TeacherTable extends Component {
         this.state.columns = columns
     }
 
-    
+
+    }
+
+    linkAvatarFormatter = (cell, row, rowIndex, formatExtraData) => {
+        return <div>
+            <Image id="target" src={cell} height={100} width={100} circle={true} /><br />
+            <label style={{
+                backgroundColor: 'steelblue',
+                color: 'white',
+                padding: 10,
+                borderRadius: 4,
+                pointer: 'cursor',
+                marginTop: "5px",
+                marginBottom: "5px"
+            }}>
+                Edit
+            <FileUploader
+                    hidden
+                    accept="image/*"
+                    storageRef={firebase.storage().ref('images')}
+                    onUploadStart={this.handleUploadStart}
+                    onUploadError={this.handleUploadError}
+                    onUploadSuccess={this.handleUploadSuccess(row)}
+                    onProgress={this.handleProgress}
+                    maxHeight={400}
+                    maxWidth={400}
+                />
+            </label>
+        </div>
+    }
 
     actionFormater = (cell, row, rowIndex, formatExtraData) => {
         return <div style={{ margin: "auto auto" }}>
@@ -107,31 +137,11 @@ class TeacherTable extends Component {
         this.setState({ isUploading: false });
         console.error(error);
     };
-    handleUploadSuccess = (row) => (filename) => {
-        this.setState({ avatar: filename, progress: 100, isUploading: false });
-        firebase
-            .storage()
-            .ref("images")
-            .child(filename)
-            .getDownloadURL()
-            .then(this.setAvatarLink.bind(this, row));
-    };
 
     setAvatarLink = (row, url) => {
         console.log(url, row)
         const teacherIDRef = firebase.database().ref().child("ListTeacher").child(row["idTeacher"]).child("linkAvatar")
         teacherIDRef.set(url)
-    }
-
-    onHideDeleteTeacherModal = (event) => {
-        this.setState({ showDeleteTeacherModal: false })
-    }
-
-    handleShowDeleteModal = (row) => (event) => {
-        this.setState({
-            showDeleteTeacherModal: true,
-            idTeacherOfDeleteModal: row.idTeacher
-        })
     }
 
     testFunction() {

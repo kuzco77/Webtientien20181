@@ -5,7 +5,9 @@ import "react-bootstrap-table-next"
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css"
 import { Button, OverlayTrigger, Popover, Tooltip } from "react-bootstrap"
 import 'cropperjs/dist/cropper.css';
-
+import AddTeacherModal from './AddTeacherModal';
+import TeacherTable from './TeacherTable';
+import DeleteTeacherModal from './DeleteTeacherModal';
 
 const tooltip = <Tooltip id="modal-tooltip">Thêm Giảng Viên</Tooltip>;
 
@@ -14,28 +16,50 @@ class TeacherController extends Component {
   constructor() {
     super()
     this.state = {
-       
+      src: "http://braavos.me/images/posts/college-rock/the-smiths.png",
+      selectedAvatarRow: null,
+      isUploading: false,
+      progress: 0,
+      showAddTeacherModal: false,
+      showDeleteTeacherModal: false,
+      idTeacherDeleteModal: "",
+      listTeachers: [],
     }
-}
+  }
 
-render() {
-    
+  handleChangeValueBtn() {
+    const rootRef = firebase.database().ref().child("react")
+    const speedRef = rootRef.child("speed")
+    speedRef.set(this.state.speed)
 
+  }
+
+
+
+  render() {
     return (
-        <div>
-            <div className="App">
-                    <p>Trang web này dùng để quản lý TEACHER</p>
-                    <TeacherTable
-            isSignedIn={(firebase.auth().currentUser !== null)}
-            onDeleteTeacher={this.onDeleteTeacher}
-            listTeachers= {this.state.listTeachers}
-          />
-            </div>
+      <div>
+        {/* <NewHeader/> */}
+        <form className="App">
 
-        </div>
+          <p className="App-intro">
+            Nhấp đúp vào ô muốn chỉnh sửa . Is signedIn
+          </p>
 
-    )
-}
+
+          <OverlayTrigger placement="right" overlay={tooltip}>
+            <Button style={{ width: "100px", marginRight: "10px" }} bsStyle="success" onClick={this.handleAddTeacherBtn}>+</Button>
+          </OverlayTrigger>
+
+          <AddTeacherModal
+            show={this.state.showAddTeacherModal}
+            onHide={this.onHideAddTeacherModal} />
+
+        </form>
+      </div>
+
+    );
+  }
 }
 
 export default TeacherController;
