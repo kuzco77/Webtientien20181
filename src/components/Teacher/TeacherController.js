@@ -23,6 +23,7 @@ class TeacherController extends Component {
       progress: 0,
       showAddTeacherModal: false,
       searchTeacherID: "",
+      numberOfTeacher: 0,
     }
   }
 
@@ -35,6 +36,10 @@ class TeacherController extends Component {
 
   componentDidMount() {
     document.title = "Giảng viên"
+
+    firebase.database().ref("Count/ListTeacher").on("value", (snapshot) => {
+      this.setState({numberOfTeacher: snapshot.val()})
+    })
 
     firebase.auth().onAuthStateChanged((user) => {
 
@@ -81,7 +86,8 @@ class TeacherController extends Component {
         <form className="App">
 
           <p className="App-intro">
-            Nhấp đúp vào ô muốn chỉnh sửa . Is signedIn {this.state.user != 0}
+            Nhấp đúp vào ô muốn chỉnh sửa . Is signedIn {this.state.user != 0} <br></br>
+            Số người dạy: {this.state.numberOfTeacher}
           </p>
 
           
