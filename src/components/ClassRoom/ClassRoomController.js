@@ -24,6 +24,7 @@ class ClassRoomController extends Component {
       progress: 0,
       showAddClassModal: false,
       searchTeacherID: "",
+      numberOfClass: 0,
     }
   }
 
@@ -36,6 +37,10 @@ class ClassRoomController extends Component {
 
   componentDidMount() {
     document.title = "Giảng viên"
+
+    firebase.database().ref("Count/ListClass").on("value", (snap) => {
+      this.setState({numberOfClass: snap.val()})
+    })
   }
 
   handleIDTF = (event) => {
@@ -61,7 +66,8 @@ class ClassRoomController extends Component {
         <form className="App">
 
           <p className="App-intro">
-            (Nhấp đúp vào ô muốn chỉnh sửa)
+            (Nhấp đúp vào ô muốn chỉnh sửa)<br></br>
+            Số lớp học: {this.state.numberOfClass}
           </p>
 
           <OverlayTrigger placement="right" overlay={tooltip}>
