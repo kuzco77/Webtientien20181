@@ -85,19 +85,19 @@ class TeacherController extends Component {
       <div>
         {/* <NewHeader/> */}
         <form className="App">
-        // Label hien thi 
+        {/* // Label hien thi  */}
           <p className="App-intro">
             Nhấp đúp vào ô muốn chỉnh sửa . Is signedIn {this.state.user != 0} <br></br>
             Số người dạy: {this.state.numberOfTeacher}
           </p>
 
-        // Nut bam them giao vien, hien thi ra dau +  
+        {/* // Nut bam them giao vien, hien thi ra dau +   */}
           <OverlayTrigger placement="right" overlay={tooltip}>
             <Button style={{width: "100px", marginRight: "10px"}} bsStyle="success" onClick={this.handleAddTeacherBtn}>+</Button>
           </OverlayTrigger>
-        // Frame them giao vien
+        {/* // Frame them giao vien */}
           <AddTeacherModal show={this.state.showAddTeacherModal} onHide={this.handleClose} />
-        // Bang danh sach giao vien
+        {/* // Bang danh sach giao vien */}
           <TeacherTable searchTeacherID={this.state.searchTeacherID} isSignedIn={(this.state.user != null)}/>
         </form>
       </div>
