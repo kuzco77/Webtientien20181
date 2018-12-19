@@ -13,6 +13,7 @@ function FieldGroup({ id, label, help, ...props }) {
     );
 }
 
+// Phuong thuc khoi tao Frame them giao vien
 class AddTeacherModal extends Component {
     constructor() {
         super()
@@ -33,6 +34,7 @@ class AddTeacherModal extends Component {
     defaultLinkAvatar = "https://firebasestorage.googleapis.com/v0/b/react-base-6ef41.appspot.com/o/images%2Ftekken7fr-lucky-chloe-chibi-art.jpg?alt=media&token=cdbe9ad4-7259-47c7-8795-36d40f834985"
 
 
+    // Ham chuyen doi ten
     convertNameToID = (oldName, callback) => {
         // Convert nhu binh thuong
         var aliasString = this.changeAlias(oldName)
@@ -93,9 +95,9 @@ class AddTeacherModal extends Component {
         str = str.trim();
         return str;
     }
-
+    // Bat su kien bam nut them giao vien
     handleAddTeacherBtn = event => {
-
+        // Chuyen doi ten
         this.convertNameToID(this.state.name, (result) => {
             const listTeacherRef = firebase.database().ref("ListTeacher")
             listTeacherRef.child(result).set({
@@ -122,7 +124,7 @@ class AddTeacherModal extends Component {
     componentWillUnmount() {
         this.isCancelled = true;
     }
-
+    // Ket xuat html de hien thi len trinh duyet
     render() {
         return (
             <Modal show={this.props.show} onHide={this.props.onHide}>

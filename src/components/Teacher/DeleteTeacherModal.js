@@ -4,10 +4,7 @@ import * as firebase from "firebase"
 import PropType from "prop-types"
 
 class DeleteTeacherModal extends Component {
-    // componentWillUnmount() {
-    //     this.isCancelled = true;
-    // }
-
+    // Bat su kien bam nut xoa giao vien
     handleDeleteTeacher = (row, event) => {
         const listTeacher = firebase.database().ref("ListTeacher")
         console.log("DeleteTeacherModel: idTeacher ", this.props.idTeacher)
@@ -15,6 +12,7 @@ class DeleteTeacherModal extends Component {
         this.props.onHide()
     }
 
+    // Ket xuat html de hien thi Frame xoa giao vien len trinh duyet
     render() {
         return (
             <Modal show={this.props.show} onHide={this.props.onHide}>
