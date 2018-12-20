@@ -4,6 +4,8 @@ import * as firebase from "firebase"
 import PropType from "prop-types"
 
 function FieldGroup({ id, label, help, ...props }) {
+
+    // Tao mot custom view
     return (
         <FormGroup controlId={id}>
             <ControlLabel>{label}</ControlLabel>
@@ -25,6 +27,7 @@ class AddTeacherModal extends Component {
         }
     }
 
+    // Gan gia tri cua TextField vao State tuong ung
     handleTextField = event => {
         this.setState({
             [event.target.id]: event.target.value
@@ -47,7 +50,7 @@ class AddTeacherModal extends Component {
 
         console.log("Ket qua vua moi ra lo: " + ketqua)
 
-
+        // Kiem tra va danh so cho ma nguoi day khi ma ten giong nhau
         const teacherRef = firebase.database().ref("ListTeacher").orderByKey().startAt(ketqua).endAt(ketqua + '\uf8ff')
         teacherRef.once("value", (snaps) => {
             if (!snaps.exists()) {
@@ -71,7 +74,7 @@ class AddTeacherModal extends Component {
         )
 
     }
-
+    // Tim ra so thu tu moi nho nhat trong cac ten giong nhau
     findSmallestMissingNumberFromSortedArray = (array) => {
         var index = 1
         while (index === array.shift()) {
@@ -80,6 +83,7 @@ class AddTeacherModal extends Component {
         return index
     }
 
+    // De bo dau voi tieng Viet
     changeAlias = (alias) => {
         var str = alias;
         str = str.toLowerCase();

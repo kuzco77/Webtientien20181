@@ -78,13 +78,13 @@ class TeacherTable extends Component {
                 width: "7%",
             },
         }];
-
+        // Chuc nang giong doan tren
         columns.forEach((value, index) => {
 
             value.editor = {
                 type: "textarea",
             }
-
+            // Dinh dang chu o giua
             Object.assign(value.headerStyle, {textAlign: "center"})
             value.push = {editable: !(index === 4 || index === 5) && this.props.isSignedIn} 
 
@@ -133,13 +133,12 @@ class TeacherTable extends Component {
             />
         </div>
     }
-
+    // Dinh dang cho truong dang Text
     achievementFormatter = (cell, row, rowIndex, formatExtraData) => {
         return <div style={{ margin: "auto auto" }}>
             <p style={{ whiteSpace: "pre-line", textAlign: "left", borderLeft: "10px" }}>{row.achievement}</p>
         </div>
     }
-
 
     handleUploadStart = () => this.setState({ isUploading: true, progress: 0 });
     handleProgress = progress => this.setState({ progress });
@@ -162,7 +161,7 @@ class TeacherTable extends Component {
         const teacherIDRef = firebase.database().ref().child("ListTeacher").child(row["idTeacher"]).child("linkAvatar")
         teacherIDRef.set(url)
     }
-
+    // Khi ma trang web tai du lieu xong
     componentDidMount() {
 
         var teacherIDRef = firebase.database().ref().child("ListTeacher")

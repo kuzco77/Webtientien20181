@@ -35,13 +35,15 @@ class TeacherController extends Component {
 
   }
 
+  // Khi ma tai du lieu xong
   componentDidMount() {
     document.title = "Giảng viên"
 
     firebase.database().ref("Count/ListTeacher").on("value", (snapshot) => {
       this.setState({numberOfTeacher: snapshot.val()})
     })
-// Khi nguoi dung dang nhap thanh cong, firebase se load du lieu ra man hinh
+
+// Kiem tra trang thai dang nhap cua nguoi dung
     firebase.auth().onAuthStateChanged((user) => {
 
       if (user) {
