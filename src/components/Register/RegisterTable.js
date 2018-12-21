@@ -34,7 +34,7 @@ class RegisterTable extends Component {
             dataField: "studyForce",
             text: "Học lực",
             headerStyle: {
-                width: "10%",
+                width: "5%",
             }
         }, {
             dataField: "phoneNumber",

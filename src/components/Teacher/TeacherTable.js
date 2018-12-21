@@ -8,6 +8,7 @@ import PropType from "prop-types"
 import DeleteTeacherModal from './DeleteTeacherModal';
 
 class TeacherTable extends Component {
+// Phuong thuc khoi tao
     constructor(props) {
         super(props)
         this.state = {
@@ -17,7 +18,7 @@ class TeacherTable extends Component {
             showDeleteTeacherModal: false,
             idTeacherOfDeleteModal: ""
         }
-
+// Dat tieu de cho cac cot cua bang Giao vien
         this.state.products = [];
         const columns = [{
             dataField: "idTeacher",
@@ -62,25 +63,28 @@ class TeacherTable extends Component {
         },{
             dataField: "linkAvatar",
             text: "Avatar",
+            // Dinh dang anh giao vien, neu khong dat avatarFormater thi se hien thi link
             formatter: this.avatarFormater,
             headerStyle: {
                 width: "12%",
             }
         }, {
+            // Button xoa giao vien
             dataField: "Action",
             text: "Action",
+            // Dinh dang button voi chuc nang xoa giao vien
             formatter: this.actionFormater,
             headerStyle: {
                 width: "7%",
             },
         }];
-
+        // Chuc nang giong doan tren
         columns.forEach((value, index) => {
 
             value.editor = {
                 type: "textarea",
             }
-
+            // Dinh dang chu o giua
             Object.assign(value.headerStyle, {textAlign: "center"})
             value.push = {editable: !(index === 4 || index === 5) && this.props.isSignedIn} 
 
@@ -89,6 +93,7 @@ class TeacherTable extends Component {
         this.state.columns = columns
     }
 
+    // Dinh dang anh giao vien, neu khong dat avatarFormater thi se hien thi link
     avatarFormater = (cell, row, rowIndex, formatExtraData) => {
         return <div>
             <Image id="target" src={cell} height={100} width={100} circle={true} /><br />
@@ -117,6 +122,7 @@ class TeacherTable extends Component {
         </div>
     }
 
+    // Dinh dang button voi chuc nang xoa giao vien
     actionFormater = (cell, row, rowIndex, formatExtraData) => {
         return <div style={{ margin: "auto auto" }}>
             <Button style={{marginTop: "50%"}} bsStyle="danger" onClick={this.handleShowDeleteModal.bind(this, row)}>Delete</Button>
@@ -127,13 +133,12 @@ class TeacherTable extends Component {
             />
         </div>
     }
-
+    // Dinh dang cho truong dang Text
     achievementFormatter = (cell, row, rowIndex, formatExtraData) => {
         return <div style={{ margin: "auto auto" }}>
             <p style={{ whiteSpace: "pre-line", textAlign: "left", borderLeft: "10px" }}>{row.achievement}</p>
         </div>
     }
-
 
     handleUploadStart = () => this.setState({ isUploading: true, progress: 0 });
     handleProgress = progress => this.setState({ progress });
@@ -150,13 +155,13 @@ class TeacherTable extends Component {
             .getDownloadURL()
             .then(this.setAvatarLink.bind(this, row));
     };
-
+    // Dat anh cho giao vien
     setAvatarLink = (row, url) => {
         console.log(url, row)
         const teacherIDRef = firebase.database().ref().child("ListTeacher").child(row["idTeacher"]).child("linkAvatar")
         teacherIDRef.set(url)
     }
-
+    // Khi ma trang web tai du lieu xong
     componentDidMount() {
 
         var teacherIDRef = firebase.database().ref().child("ListTeacher")
@@ -174,14 +179,14 @@ class TeacherTable extends Component {
         })
 
     }
-
+    // Bat su kien bam nut an di Frame xoa giao vien
     onHideDeleteTeacherModal = (event) => {
         this.setState({ showDeleteTeacherModal: false })
     }
 
 
 
-
+    // Bat su kien hien thi Frame hoi ve viec xoa giao vien
     handleShowDeleteModal = (row, event) => {
         this.setState({ showDeleteTeacherModal: true,
             idTeacherOfDeleteModal: row.idTeacher })
@@ -235,7 +240,7 @@ class TeacherTable extends Component {
         })
 
     }
-
+// Ket xuat html cho viec hien thi bang giao vien
     render() {
         return (
             <BootstrapTable

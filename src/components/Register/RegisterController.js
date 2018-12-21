@@ -14,6 +14,7 @@ class RegisterController extends Component {
             showDeleteRegisterModal: false,
             registerData: "",
             showAcceptRegisterModal: false,
+            numberOfRequest: 0,
         }
     }
 
@@ -38,6 +39,10 @@ class RegisterController extends Component {
 
         })
         console.log(firebase.auth().currentUser !== null);
+
+        firebase.database().ref("Count/ListRegisterClass").on("value", (snap) => {
+            this.setState({numberOfClass: snap.val()})
+        })
 
     }
 
@@ -75,6 +80,10 @@ class RegisterController extends Component {
     render() {
         return (
             <div className="App">
+                <p>
+                    Số đơn đăng ký: {this.state.numberOfClass}
+                </p>
+
                 <RegisterTable
                     isSignedIn={firebase.auth().currentUser !== null}
                     onDeleteRegister={this.onDeleteRegister}

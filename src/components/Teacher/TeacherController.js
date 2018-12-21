@@ -12,7 +12,7 @@ import NewHeader from "../Header/NewHeader"
 const tooltip = <Tooltip id="modal-tooltip">Thêm Giảng Viên</Tooltip>;
 
 class TeacherController extends Component {
-
+// Phuong thuc khoi tao
   constructor() {
     super()
     this.state = {
@@ -21,8 +21,10 @@ class TeacherController extends Component {
       selectedAvatarRow: null,
       isUploading: false,
       progress: 0,
+      // Khong hien thi Frame them giao vien
       showAddTeacherModal: false,
       searchTeacherID: "",
+      numberOfTeacher: 0,
     }
   }
 
@@ -33,9 +35,15 @@ class TeacherController extends Component {
 
   }
 
+  // Khi ma tai du lieu xong
   componentDidMount() {
     document.title = "Giảng viên"
 
+    firebase.database().ref("Count/ListTeacher").on("value", (snapshot) => {
+      this.setState({numberOfTeacher: snapshot.val()})
+    })
+
+// Kiem tra trang thai dang nhap cua nguoi dung
     firebase.auth().onAuthStateChanged((user) => {
 
       if (user) {
@@ -61,37 +69,38 @@ class TeacherController extends Component {
     const searchTeacherID = event.target.value
     this.setState({searchTeacherID: ""})
   }
-
+// Bat su kien bam nut them, hien thi ra Frame them giao vien
   handleAddTeacherBtn = (event) => {
     this.setState({showAddTeacherModal: true,})
   }
-
+// Bat su kien bam nut close, tat di Frame them giao vien
   handleClose = (event) => {
     this.setState({showAddTeacherModal: false})
   }
-
+// Bat su kien tim kiem giao vien
   handleSearchTeacher = (event) => {
     this.state.searchTeacherID = event.target.value
   }
-
+// Ket xuat noi dung HTML de hien thi tren trang web
   render() {
     return (
       <div>
         {/* <NewHeader/> */}
         <form className="App">
-
+        {/* // Label hien thi  */}
           <p className="App-intro">
-            Nhấp đúp vào ô muốn chỉnh sửa . Is signedIn {this.state.user != 0}
+            Nhấp đúp vào ô muốn chỉnh sửa . Is signedIn {this.state.user != 0} <br></br>
+            Số người dạy: {this.state.numberOfTeacher}
           </p>
 
-          
+        {/* // Nut bam them giao vien, hien thi ra dau +   */}
           <OverlayTrigger placement="right" overlay={tooltip}>
             <Button style={{width: "100px", marginRight: "10px"}} bsStyle="success" onClick={this.handleAddTeacherBtn}>+</Button>
           </OverlayTrigger>
-
+        {/* // Frame them giao vien */}
           <AddTeacherModal show={this.state.showAddTeacherModal} onHide={this.handleClose} />
+        {/* // Bang danh sach giao vien */}
           <TeacherTable searchTeacherID={this.state.searchTeacherID} isSignedIn={(this.state.user != null)}/>
-
         </form>
       </div>
 
