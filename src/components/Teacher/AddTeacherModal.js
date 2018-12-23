@@ -4,6 +4,8 @@ import * as firebase from "firebase"
 import PropType from "prop-types"
 
 function FieldGroup({ id, label, help, ...props }) {
+
+    // Tao mot custom view
     return (
         <FormGroup controlId={id}>
             <ControlLabel>{label}</ControlLabel>
@@ -13,6 +15,7 @@ function FieldGroup({ id, label, help, ...props }) {
     );
 }
 
+// Phuong thuc khoi tao Frame them giao vien
 class AddTeacherModal extends Component {
     constructor() {
         super()
@@ -24,6 +27,7 @@ class AddTeacherModal extends Component {
         }
     }
 
+    // Gan gia tri cua TextField vao State tuong ung
     handleTextField = event => {
         this.setState({
             [event.target.id]: event.target.value
@@ -33,6 +37,7 @@ class AddTeacherModal extends Component {
     defaultLinkAvatar = "https://firebasestorage.googleapis.com/v0/b/react-base-6ef41.appspot.com/o/images%2Ftekken7fr-lucky-chloe-chibi-art.jpg?alt=media&token=cdbe9ad4-7259-47c7-8795-36d40f834985"
 
 
+    // Ham chuyen doi ten
     convertNameToID = (oldName, callback) => {
         // Convert nhu binh thuong
         var aliasString = this.changeAlias(oldName)
@@ -45,7 +50,7 @@ class AddTeacherModal extends Component {
 
         console.log("Ket qua vua moi ra lo: " + ketqua)
 
-
+        // Kiem tra va danh so cho ma nguoi day khi ma ten giong nhau
         const teacherRef = firebase.database().ref("ListTeacher").orderByKey().startAt(ketqua).endAt(ketqua + '\uf8ff')
         teacherRef.once("value", (snaps) => {
             if (!snaps.exists()) {
@@ -69,7 +74,7 @@ class AddTeacherModal extends Component {
         )
 
     }
-
+    // Tim ra so thu tu moi nho nhat trong cac ten giong nhau
     findSmallestMissingNumberFromSortedArray = (array) => {
         var index = 1
         while (index === array.shift()) {
@@ -78,6 +83,7 @@ class AddTeacherModal extends Component {
         return index
     }
 
+    // De bo dau voi tieng Viet
     changeAlias = (alias) => {
         var str = alias;
         str = str.toLowerCase();
@@ -93,9 +99,9 @@ class AddTeacherModal extends Component {
         str = str.trim();
         return str;
     }
-
+    // Bat su kien bam nut them giao vien
     handleAddTeacherBtn = event => {
-
+        // Chuyen doi ten
         this.convertNameToID(this.state.name, (result) => {
             const listTeacherRef = firebase.database().ref("ListTeacher")
             listTeacherRef.child(result).set({
@@ -122,7 +128,7 @@ class AddTeacherModal extends Component {
     componentWillUnmount() {
         this.isCancelled = true;
     }
-
+    // Ket xuat html de hien thi len trinh duyet
     render() {
         return (
             <Modal show={this.props.show} onHide={this.props.onHide}>
