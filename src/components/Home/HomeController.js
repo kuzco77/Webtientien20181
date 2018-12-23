@@ -89,14 +89,15 @@ class HomeController extends Component {
     render() {
         var displayName = this.state.user.displayName
         var welcomeTitle = displayName ? ("Xin chao, " + displayName) : "Xin vui long dang nhap truoc khi su dung"
+        var isSignedIn = displayName ? true : false
         return (
             <div className="App">
                 {/* <NewHeader/> */}
                 <Jumbotron style={{ marginTop: "12.5%" }} bsClass="body">
                     <h1>{welcomeTitle}</h1>
                     <p>Trang web này dùng để quản lý người dạy và lớp học tại EDUMET</p>
-                    <p><Button bsStyle="success" onClick={this.signInWithPopUp}>Sign In</Button></p>
-                    <p><Button bsStyle="primary" onClick={this.signOutHandle}>Sign Out</Button></p>
+                    <p><Button bsStyle="success" disabled={isSignedIn} onClick={this.signInWithPopUp}>Sign In</Button></p>
+                    <p><Button bsStyle="primary" disabled={!isSignedIn} onClick={this.signOutHandle}>Sign Out</Button></p>
                     <ChangeTeacherIDView/>
                     <ChangeClassIDView/>
                 </Jumbotron>

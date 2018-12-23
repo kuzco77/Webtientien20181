@@ -20,7 +20,7 @@ class RequestController extends Component {
         return (
             <div>
                 <div className="App">
-                    <p>Trang web này dùng để quản lý REQUEST</p>
+                    <p>Trang web này dùng để quản lý Đơn đăng ký mới</p>
                 </div>
             </div>
 
