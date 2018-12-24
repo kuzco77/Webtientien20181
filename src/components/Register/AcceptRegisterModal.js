@@ -29,12 +29,6 @@ class AcceptRegisterModel extends Component {
             
         })
 
-
-
-
-
-
-
     }
 
     componentDidMount = () => {
