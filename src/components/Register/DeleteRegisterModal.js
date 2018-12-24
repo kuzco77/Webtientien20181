@@ -14,18 +14,18 @@ class DeleteRegisterModal extends Component {
 
     render() {
         return (
-            <Modal show={this.props.show} onHide={this.props.onHide}>
-            <Modal.Header closeButton>
-              <Modal.Title>Cảnh báo</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-                Bạn chuẩn bị xóa đăng ký này khỏi CSDL. Một khi đã xóa sẽ không khôi phục lại được. Bạn có chắc chắn muốn xóa
-            </Modal.Body>
-            <Modal.Footer>
-              <Button onClick={this.props.onHide}>No</Button>
-              <Button bsStyle="danger" onClick={this.onDeleteRegister}>Yes</Button>
-            </Modal.Footer>
-          </Modal>
+        //     <Modal show={this.props.show} onHide={this.props.onHide}>
+        //     <Modal.Header closeButton>
+        //       <Modal.Title>Cảnh báo</Modal.Title>
+        //     </Modal.Header>
+        //     <Modal.Body>
+        //         Bạn chuẩn bị xóa đăng ký này khỏi CSDL. Một khi đã xóa sẽ không khôi phục lại được. Bạn có chắc chắn muốn xóa
+        //     </Modal.Body>
+        //     <Modal.Footer>
+        //       <Button onClick={this.props.onHide}>No</Button>
+        //       <Button bsStyle="danger" onClick={this.onDeleteRegister}>Yes</Button>
+        //     </Modal.Footer>
+        //   </Modal>
         )
     }
 }
